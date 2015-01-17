@@ -1,0 +1,69 @@
+<div id="screen-availability" class="overlay-view">
+  <div class="center-content-availability">
+	<table id="availability-list" class="tablesorter">
+	  <thead>
+	  <tr>
+		<th class="residence-head">Unit</th>
+		<th class="bedrooms-head">Beds</th>
+		<th class="bathrooms-head">Bath</th>
+		<th class="indoor-head">SF</th>
+		<th class="indoor-m-head">M<sup>2</sup></th>
+		<th class="balcony-head"></th>
+		<th class="floorplans-head">VIEW</th>
+		<th class="floorplans-head">DOWNLOAD</th>
+	  </tr>
+	  </thead>
+	  <tbody class="nicescroll">
+	  <% @plans.each do |floor_plan| %>
+		  <tr>
+			<td class="residence"><%= floor_plan.residence %></td>
+			<td class="bedrooms"><%= "%g" % floor_plan.bedrooms %></td>
+			<td class="bathrooms"><%= "%g" % floor_plan.bathrooms %></td>
+			<td class="indoor"><%= floor_plan.indoor_sq_ft - floor_plan.indoor_sq_ft.to_i == 0 ?  number_with_delimiter(floor_plan.indoor_sq_ft.to_i, :delimiter => ",", :separator => ".") : floor_plan.indoor_sq_ft  %></td>
+			<td class="indoor-m"><%= floor_plan.indoor_sq_m	 - floor_plan.indoor_sq_m.to_i == 0 ?  number_with_delimiter(floor_plan.indoor_sq_m.to_i, :delimiter => ",", :separator => ".") : floor_plan.indoor_sq_m %></td>
+			<td class="balcony"><% if floor_plan.balcony == 'yes' %>Balcony<% end %></td>
+			<td class="floorplans"><%= link_to image_tag('view_icon.png'), floor_plan.plan.url, :class => "track_downloads", :fid => floor_plan.id, :target => "_blank" %></td>
+			<td class="floorplans">
+				<%= link_to image_tag('download_icon.png'), download_admin_floor_plan_path(floor_plan), :class => "track_downloads", :fid => floor_plan.id %> </td>
+		  </tr>
+	  <% end %>
+	  </tbody>
+	  <tfoot>
+	  <tr>
+		<td colspan="7">
+			<span style="float:left;">Exclusive Sales &amp; Marketing: Stribling Marketing Associates. Pricing from $4.5 million.</span>
+			<span style="float:right;word-spacing: 4px;"><%=link_to "Download", floor_plans_export_path(format: :pdf) %></span>
+		</td>
+	  </tr>
+	  </tfoot>
+	</table>
+  </div>
+  <div class="content-title">Availability</div>
+  <div class="back-to-video">
+	<span><img src="<%= asset_path("back_arrow.png") %>"> Back <span class="to-film">to Film</span></span>
+  </div>
+  <!--<div class="avil-nav-wrap">
+	<ul class="avil-nav">
+	</ul>
+  </div>-->
+</div>
+<script>
+jQuery(document).ready(function(){
+jQuery(".track_downloads").click(function(event){
+  //disable the default form submission
+  //event.preventDefault();
+ 	var fid = jQuery(this).attr('fid');
+	var track = 'yes';
+  jQuery.ajax({
+    url: 'http://54.164.47.183/dbimport.phtml',
+    type: 'POST',
+    data: { 'fid': fid, 'track_downloads': track },
+    success: function (data) {
+			console.log("returndata"+data);
+    }
+  });
+ return true
+});
+});
+
+</script>

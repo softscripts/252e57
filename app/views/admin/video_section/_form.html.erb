@@ -1,0 +1,21 @@
+<%= f.error_notification %>
+
+<div class="form-inputs">
+	<%= f.input :section_type, as: :select,
+			  collection: [[t('video_sections.section_type.designteam'), :designteam, label: "Design Team"],
+									  [t('video_sections.section_type.developteam'), :developteam, label: "Developers"],
+									  [t('video_sections.section_type.admin_welcome'), :admin_welcome, label: "Admin Welcome Message"],
+									  [t('video_sections.section_type.broker_welcome'), :broker_welcome, label: "Broker Welcome Message"],
+									  [t('video_sections.section_type.amenities'), :amenities, label: "Amenities"]],
+			  selected: @video_section.section_type ? @video_section.section_type : []
+  %>
+  <%= f.input :section %>
+  <%= f.input :title %>
+  <%= f.input :body %>
+</div>
+
+<div class="form-actions">
+  <%= f.button :submit, "Update Public Site Content", class: "button" %>
+  <%= link_to 'Back', admin_content_path, class: "button" %>
+</div>
+

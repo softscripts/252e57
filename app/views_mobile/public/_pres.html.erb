@@ -1,0 +1,13 @@
+<div id="screen-press" class="screen">
+  <h1>Press</h1>
+  <ul>
+	<% @pres.each do |article| %>
+		<li>
+			<hr>
+		  	<h2>&#8220;<%= article.title %>&#8221;</h2>
+			<h3><i><%= article.description %></i><br /><%= article.published_date.strftime("%B %Y") %></h3>
+		  	<a href="<%= article.article.url %>" target ="_blank">VIEW PDF</a>
+		</li>
+	<% end %>
+  </ul>
+</div>

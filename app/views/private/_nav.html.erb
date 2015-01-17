@@ -1,0 +1,20 @@
+<div id="nav-main" class="bar">
+  <img id="nav-logo" src="<%= asset_path("private/logo_nav.png") %>"/>
+  <!--<span id="hello">Hello, <%= @private_site.receiver_name %></span>-->
+	<img id="menu-icon" src="<%= asset_path("mobile/menu_icon.png") %>" />
+  <ul id="nav-main-buttons">
+	<li class="goToHome"><span>Home</span></li>
+	<% if @private_site.floor_plans.count > 0 %>
+		<li class="goToResidences"><span>Residences</span></li>
+	<% end %>
+	<% if @private_site.si_details.count > 0 %>
+		<li class="goToDetails"><span>Details</span></li>
+	<% end %>
+	<% if @private_site.galleries.count > 0 || @private_site.private_videos.count > 0 %>
+		<li class="goToVidImg"><span>Videos &amp Images</span></li>
+	<% end %>
+	<% if @private_site.si_updates.count > 0 %>
+		<li class="goToUpdates"><span>Updates</span></li>
+	<% end %>
+  </ul>
+</div>

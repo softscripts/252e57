@@ -1,0 +1,10 @@
+<div id="screen-amenities" class="screen">
+  <h1>Amenities</h1>
+  <% @design.each do |design| %>
+		<% if design.section_type == 'amenities' %>
+	  <div class="amenities-content">
+		<%= raw design.body %>
+	  </div>
+		<% end %>
+  <% end %>
+</div>

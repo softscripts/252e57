@@ -1,0 +1,48 @@
+<?php 
+//ini_set('display_errors',1);
+$connect = mysql_connect('localhost','root','root');
+
+if (!$connect) {
+	die('Could not connect to MySQL: ' . mysql_error());
+}
+//
+
+$db_selected = mysql_select_db('1501_252_condominium', $connect);
+if (!$db_selected) {
+    die ('Can\'t able to connect : ' . mysql_error());
+}
+if($_FILES['floor_plan_import_csv']['size'] > 0) {
+$fileContent = file_get_contents($_FILES['floor_plan_import_csv']['tmp_name']);
+
+$rows = explode("\n", $fileContent); 
+
+//print_r($rows);
+
+$count = 0;
+
+for ($i=1;$i<count($rows); $i++) {
+	$fields  = explode(",", $rows[$i]);
+		//, plan_updated_at, created_at, updated_at,
+	if($fields[0] !='') {
+		
+			$sql = "INSERT INTO floor_plans (id, residence, price, bedrooms, bathrooms, additions, indoor_sq_ft, indoor_sq_m, outdoor_sq_ft, outdoor_sq_m, common_charges, monthly_total, pilot, avaliable_general, avaliable_admins, plan_file_name, plan_content_type, plan_file_size, balcony) VALUES
+		('', '".$fields[0]."', '".$fields[1]."', '".$fields[2]."', '".$fields[3]."', '".$fields[4]."', '".$fields[5]."', '".$fields[6]."', '".$fields[7]."', '".$fields[8]."', '".$fields[9]."', '".$fields[10]."', '".$fields[11]."', '".$fields[12]."', '".$fields[13]."', '".$fields[14]."', '".$fields[15]."', '".$fields[16]."', '".$fields[17]."')";
+	
+//echo $sql ;
+
+$n=mysql_query($sql, $connect) or die(mysql_error());
+$count++;
+	}
+
+}
+
+echo $count;
+}
+
+if($_REQUEST['track_downloads'] == 'yes' && !empty($_REQUEST['fid'])){
+	$fid = $_REQUEST['fid'];
+	$sql = "UPDATE floor_plans set downloads=downloads+1 where id=".$fid;
+	mysql_query($sql, $connect) or die(mysql_error());
+	echo 'done';
+}
+?>

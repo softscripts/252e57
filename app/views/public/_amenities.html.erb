@@ -1,0 +1,15 @@
+<div id="screen-amenities" class="overlay-view">
+  <div class="center-content">
+	<% @design.each do |design| %>
+			<% if design.section_type == 'amenities' %>
+		  <div class="amenities-content">
+			<%= raw design.body %>
+		  </div>
+			<% end %>
+	  <% end %>
+  </div>
+  <div class="content-title">Amenities</div>
+  <div class="back-to-video">
+	<span><img src="<%= asset_path("back_arrow.png") %>"> Back <span class="to-film">to Film</span></span>
+  </div>
+</div>

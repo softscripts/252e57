@@ -1,0 +1,24 @@
+<% hood = Gallery.neighborhood.nil? ? Gallery.new : Gallery.neighborhood.first %>
+<div id="screen-neighborhood" class="screen">
+  <h1>Neighborhood</h1>
+	<ul id="gal2-nav" class="gallery-nav">
+	<% hood.gallery_images.each do |gi| %>
+		<li><a <%= 'class="current"' if gi.sequence == 0 %> href="#"></a></li>
+	<% end %>
+  </ul>
+</div>
+<ul id="neighborhood-gallery">
+<% hood.gallery_images.each do |gi| %>
+	<li>
+		<img src="<%= gi.image.url %>" alt="<%= gi.name %>"/>
+		<div class="gallery-gradient-overlay"></div>
+		<span class="gallery-caption tablet">
+		<p><%= gi.name %></p>
+		</span>
+		<span class="gallery-caption phone">
+		<p><%= gi.alt_name %></p>
+		</span>
+	</li>
+<% end %>
+</ul>
+

@@ -1,0 +1,22 @@
+<div id="screen-developer" class="screen">
+  <h1>Developers</h1>
+
+  <ul>
+	<% @design.each do |design| %>
+	<% if design.section_type == 'developteam' %>
+	<li>
+	  <hr>
+	  <h3><%= design.title %></h3>
+
+	  <p class="short"><%= raw design.body[0, 150] + '...' %></p>
+
+	  <div class="long">
+	  	<%= raw design.body %>
+	  </div>
+	  <span class="more-less">Read More</span>
+	</li>
+	<% end%>
+	<% end%>
+  </ul>
+
+</div>

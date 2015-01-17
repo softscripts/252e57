@@ -1,0 +1,3 @@
+<% @link = '<a href="' + @domain + @private_site.private_url + '">Link</a>' %>
+<%= raw @private_site.ps_email.gsub('[Link]', @link).gsub(/\n/, '<br>') %>
+

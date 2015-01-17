@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="medium-6 columns">
+	<h1> Contact Inquiries</h1>
+  </div>
+  <div class="medium-6 columns align-right">
+	<% if is_admin? %>
+		<%= link_to 'Export All Inquries', 'user_export.csv',class: "button top_button" %>
+	<% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="medium-12 columns">
+	<table class="tablesorter availability">
+	  <thead>
+	  <tr>
+		<th>Date Created</th>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Broker</th>
+		<th width="50">View</th>
+	  </tr>
+	  </thead>
+	  <tbody>
+	  <% @public_users.each do |public_user| %>
+		  <tr>
+			<td><%= public_user.created_at.strftime("%b %d, %Y") %></td>
+			<td><%= public_user.name %></td>
+			<td style="word-break: break-all;"><%= public_user.email %></td>
+			<td><% if(public_user.broker) %>YES<% else %>NO<% end %></td>
+			<td><a href="#" data-id="<%= public_user.id %>" class="expand_row">&#9656;</a></td>
+		  </tr>
+		  <tr data-id="<%= public_user.id %>" class="extra_info expand-child">
+			<td colspan="5">
+			  <div class="row">
+					<div class="medium-6 columns">
+						<ul>
+						<li><label> Phone: </label> <%= public_user.phone %></li>
+						<li><label> Country: </label> <%= public_user.country %></li>
+						<li><label> Residence Size: </label> <%= public_user.size %><% if(public_user.size != "") %> Bedrooms<% end %></li>
+						</ul>
+					</div>
+					<div class="medium-6 columns">
+						<ul>
+						<li>
+							<label>Comments: </label> <%=public_user.comment %>
+						</li>
+						</ul>
+					</div>			 
+			 </div>
+			</td>
+		  </tr>
+	  <% end %>
+	  </tbody>
+	</table>
+  </div>
+</div>

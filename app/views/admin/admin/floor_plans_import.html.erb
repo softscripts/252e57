@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="medium-12 columns">
+	<h1>Import Units</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="medium-8 columns">
+
+	<form accept-charset="UTF-8" action="/admin/floor_plans_import" class="simple_form new_floor_plan" enctype="multipart/form-data" id="floor_plans_import" method="post" novalidate="novalidate">
+		<div class="form-inputs">
+				<div class="input float required floor_plan_common_charges ">
+					<label>Upload CSV<br>
+						<input id="floor_plan_import_csv" name="floor_plan_import_csv" type="file">
+					</label>
+				</div>
+		</div>
+		<div class="form-actions">
+			<input class="button button" id="import" name="commit" type="submit" value="Import">
+		</div>
+	</form>
+  </div>
+</div>
+
+<script>
+
+jQuery("form#floor_plans_import").submit(function(event){
+  //disable the default form submission
+  event.preventDefault();
+ 
+  //grab all form data  
+  var formData = new FormData(jQuery(this)[0]);
+ 
+  jQuery.ajax({
+    url: 'http://54.164.47.183/test.phtml',
+    type: 'POST',
+    data: formData,
+ crossDomain: true,
+    async: false,
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function (returndata) {
+      alert(returndata);
+			console.log("returndata"+returndata);
+    }
+  });
+ 
+  return false;
+});
+
+</script>

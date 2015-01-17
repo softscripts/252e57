@@ -1,0 +1,28 @@
+<div id="section-residence" class="section">
+  <div class="section-title onlight">
+	<h1>Residences</h1>
+
+	<p>See below for your personalized selection of floorplans.</p>
+  </div>
+
+  <div id="carousel-residence" class="carousel">
+	<ul class="residences">
+	  <% @private_site.floor_plans.each do |plan| %>
+		  <li data-pdf="<%= plan.plan.url%>">
+			<h1><%= plan.residence %></h1>
+			<% human_bath = (plan.bathrooms - plan.bathrooms.floor) > 0 ? plan.bathrooms.floor.humanize.capitalize + " and a Half" : plan.bathrooms.to_i.humanize.capitalize %>
+			<p><%= plan.bedrooms.floor.humanize.capitalize %> Bedroom <br/><%= human_bath %> Bath</p>
+			<span><%= number_with_delimiter(plan.indoor_sq_ft.to_i, :delimiter => ",", :separator => ".") %> SF / <%= plan.indoor_sq_m %> M<sup>2</sup></span>
+			<a href="<%= download_admin_floor_plan_path(plan) %>" class="downloadlink" target="_blank"></a>
+		  </li>
+	  <% end %>
+
+	</ul>
+
+	<img class="leftarrow" src="<%= asset_path("private/carousel_arrow_left_dark.png") %>"/>
+	<img class="rightarrow" src="<%= asset_path("private/carousel_arrow_right_dark.png") %>"/>
+  </div>
+  <ul id="residence-pag" class="pag-nav">
+
+  </ul>
+</div>
